@@ -56,7 +56,7 @@ SWAGGER_GEN_DIR=swagger-gen
 COLOR_PASS=$(shell printf "\033[32mPASS\033[0m")
 COLOR_FAIL=$(shell printf "\033[31mFAIL\033[0m")
 COLORIZE=$(SED) ''/PASS/s//$(COLOR_PASS)/'' | $(SED) ''/FAIL/s//$(COLOR_FAIL)/''
-DOCKER_NAMESPACE?=jaegertracing
+DOCKER_NAMESPACE?=registry.m-idea.net
 DOCKER_TAG?=latest
 
 MOCKERY=mockery
@@ -215,15 +215,15 @@ docker: build-ui build-binaries-linux docker-images-only
 
 .PHONY: build-binaries-linux
 build-binaries-linux:
-	GOOS=linux $(MAKE) build-platform-binaries
+	GOOS=linux GOARCH=arm64 $(MAKE) build-platform-binaries
 
 .PHONY: build-binaries-windows
 build-binaries-windows:
-	GOOS=windows $(MAKE) build-platform-binaries
+	GOOS=windows GOARCH=arm64 $(MAKE) build-platform-binaries
 
 .PHONY: build-binaries-darwin
 build-binaries-darwin:
-	GOOS=darwin $(MAKE) build-platform-binaries
+	GOOS=darwin GOARCH=arm64 $(MAKE) build-platform-binaries
 
 .PHONY: build-platform-binaries
 build-platform-binaries: build-agent build-collector build-query build-ingester build-all-in-one build-examples

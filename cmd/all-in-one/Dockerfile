@@ -1,4 +1,4 @@
-FROM scratch
+FROM alpine
 
 # Agent zipkin.thrift compact
 EXPOSE 5775/udp
