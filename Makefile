@@ -233,13 +233,13 @@ build-all-platforms: build-binaries-linux build-binaries-windows build-binaries-
 
 .PHONY: docker-images-cassandra
 docker-images-cassandra:
-	docker build -t $(DOCKER_NAMESPACE)/jaeger-cassandra-schema:${DOCKER_TAG} plugin/storage/cassandra/
+	docker build --no-cache -t $(DOCKER_NAMESPACE)/jaeger-cassandra-schema:${DOCKER_TAG} plugin/storage/cassandra/
 	@echo "Finished building jaeger-cassandra-schema =============="
 
 .PHONY: docker-images-elastic
 docker-images-elastic:
-	docker build -t $(DOCKER_NAMESPACE)/jaeger-es-index-cleaner:${DOCKER_TAG} plugin/storage/es
-	docker build -t $(DOCKER_NAMESPACE)/jaeger-es-rollover:${DOCKER_TAG} plugin/storage/es -f plugin/storage/es/Dockerfile.rollover
+	docker build --no-cache -t $(DOCKER_NAMESPACE)/jaeger-es-index-cleaner:${DOCKER_TAG} plugin/storage/es
+	docker build --no-cache -t $(DOCKER_NAMESPACE)/jaeger-es-rollover:${DOCKER_TAG} plugin/storage/es -f plugin/storage/es/Dockerfile.rollover
 	@echo "Finished building jaeger-es-indices-clean =============="
 
 .PHONY: docker-images-jaeger-backend
@@ -250,7 +250,7 @@ docker-images-jaeger-backend:
 	done
 
 .PHONY: docker-images-only
-docker-images-only: docker-images-cassandra docker-images-elastic docker-images-jaeger-backend
+docker-images-only: docker-images-cassandra docker-images-jaeger-backend
 
 .PHONY: docker-push
 docker-push:
